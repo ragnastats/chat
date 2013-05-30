@@ -96,9 +96,17 @@ io.sockets.on('connection', function(socket)
             && isset(user.name) && user.name)
         {
             var message = sanitize(chat.message).entityEncode();
-            socket.emit('chat', {color: 'lime', user: user.name, message: message});
-            socket.broadcast.emit('chat', {color: 'white', user: user.name, message: message});
-            console.log(user.name + " : " + message);
+
+            if(message == '/n' || message == '/names')
+            {
+                socket.emit('chat', {color: 'pink', user: count + ' users connected', message: users.join(', ')});
+            }
+            else
+            {
+                socket.emit('chat', {color: 'lime', user: user.name, message: message});
+                socket.broadcast.emit('chat', {color: 'white', user: user.name, message: message});
+                console.log(user.name + " : " + message);
+            }
         }
     });
 

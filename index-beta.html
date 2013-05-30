@@ -306,6 +306,7 @@
 			.white { color:white; }
 			.lightgreen { color:lightgreen; }
 			.lime { color:lime; }
+            .pink { color:pink; }
 		</style>
 				
 		<script>
@@ -418,6 +419,12 @@
                 {
                     $('#ragnarok-chat-content').mCustomScrollbar("update"); //update scrollbar according to newly loaded content
                     $('#ragnarok-chat-content').mCustomScrollbar("scrollTo",".mCSB_container div:last",{scrollInertia:100}); //scroll to appended content
+                });
+
+                $('#ragnarok-chat-text-input').click(function()
+                {
+                    if($(this).val() == 'Type here! (And press enter)')
+                        $(this).val('');
                 });
                 
 				$(window).keydown(function(event)
