@@ -1,0 +1,1060 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>RagnaStats &mdash; Ragnaraok Database</title>
+			
+		<script src='http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js'></script>
+		<script src='http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/jquery-ui.min.js'></script>
+		<link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/themes/base/jquery-ui.css" type="text/css" />
+		<link href='http://fonts.googleapis.com/css?family=Fredoka+One' rel='stylesheet' type='text/css'>
+		<link rel="icon" type="image/png" href="/assets/img/flower.png"/>
+			<link href="/css/jquery.mCustomScrollbar.css" rel="stylesheet" type="text/css" />
+
+		<script src='/js/contenteditable-scroll.js'></script>
+	<!-- mousewheel plugin -->
+
+	<script src='/js/jquery.mousewheel.min.js'></script>
+
+	<!-- custom scrollbars plugin -->
+
+	<script src='/js/jquery.mCustomScrollbar.js'></script>
+		
+		<style>
+			body { background-image:url(/assets/img/swirlies.png);
+			background-image:url(/assets/img/nistriflip.png);
+					margin:0px;
+					font-family: "Lucida Grande", "Lucida Sans Unicode", Helvetica, Arial, Verdana, sans-serif;
+					font-size:9pt; }
+			
+			
+			.left { float:left; }
+			.right { float:right; }
+			
+			#user { height:4px; width:100%; min-width:1024px; background-color:#fff; }
+			#user .inside {  }
+			
+			#user a { color:hsl(215, 60%, 40%);
+						padding:0px 10px; }
+
+			#userlinks { position:absolute;
+							background-color:#fff;
+							border-bottom-right-radius: 8px;
+							border-bottom-left-radius: 8px;
+							border-bottom:1px solid #94A2CA;
+							padding:4px 12px 6px 12px;
+							top:4px;
+							right:24px; }
+			
+			#header { height:110px; width:100%; min-width:1024px; padding-top:44px; background-color:hsla(225, 35%, 50%, 0.3); }
+			.inside { width:1024px; margin:0px auto; position:relative; }
+			
+			#nav { font-size:13pt;
+					height:40px; width:100%; min-width:1024px; background-color:hsla(225, 35%, 50%, 0.6);		}
+				
+			#nav .inside { padding-top:10px; }
+				
+			#nav #links { padding-left:44px; }
+			 
+			
+			a { text-decoration:none; color:inherit; }
+			a:hover { text-decoration:underline; }
+			
+			
+			#headernav { position:absolute;
+							border-bottom-right-radius: 8px;
+							border-bottom-left-radius: 8px;
+							border-bottom:1px solid #94A2CA;
+							padding:4px 12px 6px 12px;
+							background-color:#fff;
+							top:4px;
+							left:44px; }
+							
+			#headernav a { padding:0px 10px; color:#000; }
+			
+			#nav a { color:hsl(215, 60%, 40%);
+					 padding:10px;
+					 margin:0px; }
+
+			#nav a:hover { text-decoration:none; background-color:hsla(225, 35%, 50%, 0.1); }
+				
+			#nav a.selected { color:#fff; }
+
+
+			#logo img::selection { background: transparent }
+
+			#content::selection { background: transparent }
+			
+			#content { min-width:1024px;
+						background-color:hsla(225, 60%, 40%, 0.7); 
+						position:relative; }
+	
+			#content .inside { padding:8px; position:relative; min-height:480px; }
+
+			#content .inside::selection { background: transparent }
+
+			#footer-container {
+						width:100%;
+						background-image:url(/assets/img/nistri.png);
+						z-index:44;
+					}
+					
+			#footer {	min-width:1024px;
+						background-color:hsla(225, 35%, 50%, 0.5);
+						color:hsl(215, 70%, 40%);
+						min-height:144px; }
+						
+			#footer .inside { padding-top:7px; }
+
+			.footerbox { float:left; padding:0px 12px; }
+			.footerbox ul { list-style-type:none; margin:0; padding:0; }
+			
+			#footerboxes { width:830px; margin:0px auto; }
+			
+			#searchbox { position:absolute;
+							top:5px;
+							right:22px; }
+			
+			.search { background-color:#fff; width:220px; padding:4px 8px; border-radius:4px;
+						border-bottom:1px solid #000;
+						border-right:1px solid #000;
+						display:inline-block;
+						color:#000;
+						overflow:hidden; }
+						
+			.submit {  background-color:hsla(225, 35%, 50%, 0.8);
+						padding:4px 24px;
+						border-radius:4px;
+						
+						border-top:1px solid #fff;
+						border-left:1px solid #fff;
+						border-bottom:1px solid #000;
+						border-right:1px solid #000;
+						display:inline-block;
+						color:#fff;
+						cursor:pointer;
+						text-shadow:#000 1px 1px 2px; }
+					
+			.submit:active { border-top:1px solid #000;
+							 border-left:1px solid #000;
+							 border-bottom:1px solid #fff;
+							 border-right:1px solid #fff; }
+					
+			h1,h2,h3,h4,h5 { font-family: "Fredoka One"; font-weight:normal; }
+			h1 { font-size:244%; }
+			h2 { font-size:188%; }			
+		
+			h1 { padding:0px; }
+			h2 { padding:0px 12px 8px 0px; margin:0; }
+			
+			td { text-align:center; font-size:10pt; }
+
+			#avatar { position:absolute;
+						z-index:1;
+						top:44px;
+						right:22px;
+						border:1px solid #000; }
+						
+			#itembar { position:absolute;
+						z-index:1;
+						top:56px;
+						right:136px; }
+						
+			#content a { color: #1F5AAD; }
+			
+			.pointer { cursor:url(/assets/chat/pointer.gif), auto; }
+			
+				ul { padding-left: 50px; }
+	.block { display:inline-block; width:97px; text-align:right; }
+	.bold { font-weight: bold; }
+	.italic { font-style: italic; }
+
+		</style>
+		
+		<script>
+			function resizeContent()
+			{
+				if($(window).height() - 164 > $('#content .inside').height())
+				{
+					$('#content .inside').stop();
+					$('#content .inside').animate({'height': $(window).height() - 164});
+				}
+			}
+		
+			$(window).load(function()
+			{
+				resizeContent();
+			});
+			
+			$(window).resize(function()
+			{
+				resizeContent();
+			});			
+		</script>
+		
+		<style>
+			* { cursor:url(/assets/chat/cursor.gif), auto; }
+		
+			body { background-color:#000;
+					cursor:url(/assets/chat/cursor.gif), auto;
+					margin:0px;}
+					
+			input { cursor:url(/assets/chat/cursor.gif), auto;  }
+			
+			#ragnarok-chat {
+				width:600px;
+				height:103px;
+				border:1px solid #8c8c8c;
+				border-top:1px solid #fff;
+				border-left:1px solid #fff;
+				border-top-left-radius: 4px;
+				border-top-right-radius: 4px;
+				background-color:rgba(0, 0, 0, 0.4);
+				position:absolute;
+				z-index:1;
+				top:auto;
+				bottom:0px;
+				left:72px;
+				text-shadow:1px 1px #000;
+			}
+			
+			#ragnarok-chat, #ragnarok-chat input { 
+				font-family:Arial;
+				font-size:9pt;
+			}
+			
+			#ragnarok-chat-handle {
+				width:100%;
+				height:24px;
+				border-top:1px solid #8c8c8c;
+				position:absolute;
+				bottom:0;
+				top:auto;
+			}
+			
+			
+			#ragnarok-chat-container {
+				background-image:url('/assets/chat/stripe-background.png');
+				height:24px;
+				margin:-1px -5px;
+				border:1px solid #C6C6C6;
+				border-radius:4px;
+				display:none;
+			}
+			
+			#ragnarok-chat-input {
+				height:20px;
+				overflow:hidden;
+				margin:2px;
+				color:#000;
+				text-shadow:none;
+				position:relative;
+			}
+			
+			#ragnarok-chat-input input {
+				height:17px;
+				border:none;
+				border-top:1px solid #ADADAD;
+				border-left:1px solid #ADADAD;
+				border-radius:2px;
+				outline:none;
+			}
+			
+			#ragnarok-chat-user-input {
+				width:100px;
+				position:absolute;
+				left:0px;
+			}
+			
+			#ragnarok-chat-user-button {
+				position:absolute;
+				left:102px;
+				cursor:url(/assets/chat/pointer.gif), auto;
+			}
+			
+			#ragnarok-chat-text-input {
+				width:462px;
+				position:absolute;
+				left:112px;
+			}
+			
+			#ragnarok-chat-send-to {
+				position:absolute;
+				left:574px;
+				padding:4px;
+				cursor:url(/assets/chat/pointer.gif), auto;
+			}
+			
+			#ragnarok-chat-resize {
+				position:absolute;
+				left:588px;
+				padding:4px;
+				cursor:url(/assets/chat/pointer.gif), auto;
+			}
+			
+			#ragnarok-chat-content {
+				margin:2px 0px 0px 3px;
+				overflow:hidden;
+			}
+			
+			.yellow { color:yellow; }
+			.green { color:green; }
+			.white { color:white; }
+			.lightgreen { color:lightgreen; }
+			.lime { color:lime; }
+		</style>
+				
+		<script>
+			function evaluate(element)
+			{
+				if(element.attr('href'))
+					window.location.href = element.attr('href');
+					
+				if(element.attr('close'))
+					$(element.attr('close')).fadeOut();
+
+				if(element.attr('spawn'))
+					$(element.attr('spawn')).fadeIn();
+					
+				if(element.attr('toggle'))
+					$(element.attr('toggle')).fadeToggle();
+					
+				if(element.attr('scroll'))
+					$(element.attr('scroll')).mCustomScrollbar({ scrollInertia:0 });
+			}
+		
+			$(document).ready(function()
+			{	
+
+				$('#ragnarok-chat-content').height($('#ragnarok-chat').height() - 26);
+				
+				$('#ragnarok-chat').resize(function()
+				{
+					$('#ragnarok-chat-content').height($('#ragnarok-chat').height() - 26);
+				});
+			
+				$('#ragnarok-chat-content').mCustomScrollbar({
+
+					scrollInertia:0
+
+				});
+				
+				$('#warning').mCustomScrollbar({
+
+					scrollInertia:0
+
+				});
+
+				$('#warning-container').draggable({'cancel': '#warning-container > div',
+													'start': function() { $(this).css('opacity', 0.7); },
+													'stop': function() { $(this).css('opacity', 1); },
+													'containment': "#content"
+									});
+
+				$('.window').draggable({'cancel': '.nodrag',
+													'start': function() { $(this).css('opacity', 0.7); },
+													'stop': function() { $(this).css('opacity', 1); },
+													'stack': '.window',
+													'containment': "#content"
+									});
+
+				$('#button-container').draggable({'cancel': '.nodrag',
+													'start': function() { $(this).css('opacity', 0.7); },
+													'stop': function() { $(this).css('opacity', 1); },
+													'containment': "#content"
+									});
+									
+				$('.button').hover(function()
+				{
+					$(this).css({'background-image': 'url(/assets/basic/button-hover.png)'});
+				},
+				
+				function()
+				{
+					$(this).css({'background-image': 'url(/assets/basic/button.png)'});
+				});
+				
+				$('.button').mousedown(function()
+				{
+					$(this).css({'line-height': '16px', 'text-shadow': '-1px -1px 1px #fff' });
+				});
+				
+				$('.button').mouseup(function()
+				{
+					$(this).css({'line-height': '13px', 'text-shadow': 'none' });
+				});
+				
+				$('.button').click(function()
+				{
+					evaluate($(this));
+				});
+				
+				$('#checkbox-keep-username').click(function()
+				{				
+					if($(this).attr('src') == '/assets/basic/keep-checked.png')
+						$(this).attr('src', '/assets/basic/keep-unchecked.png');
+					else
+						$(this).attr('src', '/assets/basic/keep-checked.png');
+				});
+				
+				$('#logo').draggable({'start': function() { $(this).css('opacity', 0.7); },
+									  'stop': function() { $(this).css('opacity', 1); },
+												'containment': "#content"
+									});
+			
+				$('#ragnarok-chat').draggable({'handle': '#ragnarok-chat-handle',
+												'start': function() { $(this).css('opacity', 0.7); },
+												'stop': function() { $(this).css('opacity', 1); },
+												'containment': "#content"
+											});
+											
+				$('#ragnarok-chat').resizable({    handles: 'n', 'grid': [14, 14], 'maxHeight': 280, 'minHeight':75 });
+								
+				$(window).keydown(function(event)
+				{
+					if(event.keyCode == 13) // Enter
+					{
+						if($('#server-select').is(":visible"))
+						{
+							console.log($('#server-select .select'));
+							evaluate($('#server-select .select'));
+							return true;
+						}
+						
+						$('#ragnarok-chat-container').toggle();
+						$('#ragnarok-chat-text-input').focus();
+					}
+				
+					if(event.keyCode == 38) // Up
+					{
+						if($('#server-select').is(":visible"))
+						{							
+							var selection = $('.select-area div.selected').index();
+							var previous;
+							
+							if(selection == 0) // Top of the menu
+								previous = selection;
+							else
+								previous = parseInt(selection) - 1;
+							
+							$('.select-area div').eq(selection).removeClass('selected');
+							$('.select-area div').eq(previous).addClass('selected');
+						}
+					}
+					
+					if(event.keyCode == 40) // Down
+					{
+						if($('#server-select').is(":visible"))
+						{							
+							var selection = $('.select-area div.selected').index();
+							var next;
+							
+							if(selection == $('.select-area div.selected').parents('.select-area').children().length - 1) // Bottom of the menu
+								next = selection;
+							else
+								next = parseInt(selection) + 1;
+														
+							$('.select-area div').eq(selection).removeClass('selected');
+							$('.select-area div').eq(next).addClass('selected');							
+						}					
+					}					
+				});
+				
+				$('#login-box input').keydown(function(event)
+				{
+					event.stopPropagation();
+
+					if(event.keyCode == '13') // Enter
+					{
+						$('#login-box').fadeOut();
+						$('#failed-lol').fadeIn();
+					}
+				});
+
+				$('.select-area div').click(function()
+				{
+					$('.select-area div').removeClass('selected');
+					$(this).addClass('selected');
+				});
+				
+				$('.select-area div').dblclick(function()
+				{
+					evaluate($('#server-select .select'));
+				});
+				
+				$('.select-container .selected').click(function()
+				{
+					$(this).parent().find('.select-box').slideToggle('fast');
+				});
+				
+				$('.select-box').click(function()
+				{
+					$('.select-box').slideToggle('fast');
+				});
+				
+				$('.select-box div').click(function()
+				{
+					$(this).parents('.select-container').find('.selected').text($(this).text());
+				});
+
+			});
+		</script>
+		
+		<style>
+			#warning-container {
+				background-color:#fff;
+				padding:2px;
+				position:absolute;
+				top:16px;
+				border-radius:8px;
+				left:314px;
+				overflow:hidden;
+			}
+		
+			#warning {
+				border:1px solid #ccc;
+				border-radius:8px;
+				padding:8px;
+				padding-right:0px;
+				margin:1px;
+				width:400px;
+				height:300px;
+				background:#fff;
+				color:#000;
+			}
+		
+			#login-box {
+				display:none;
+				position:absolute;
+			}
+
+			#server-select {
+				display:none;
+				position:absolute;
+				min-width:310px;
+			}
+		
+			.button {
+				background-image:url(/assets/basic/button.png);
+				cursor:url(/assets/chat/pointer.gif), auto;
+				background-repeat:repeat-x;
+				color:#000;
+				margin:4px 2px 2px 4px;
+				height:16px;
+				line-height:13px;
+				padding:0px 8px;
+				border:1px solid #A3A3A3;
+				border-radius:4px;
+			}
+			
+			*::selection { background: transparent }
+			.highlight *::selection { background-color:#739CEF; }
+			
+			.window {
+				background-color:#fff;
+				border-radius:4px;
+				width:260px;
+				display:none;
+				left:44px;
+				border:1px solid #CECECE;
+				border-top:none;
+			}
+			
+			.window .title {
+				background-image:url(/assets/basic/window-title.png);
+				background-repeat:repeat-x;
+
+				border-top:1px solid #8597FF;
+				border-bottom:1px solid #000;
+				
+				border-top-left-radius: 4px;
+				border-top-right-radius: 4px;
+				text-shadow:1px 1px #fff;
+				padding:0px 2px;
+				height:15px;
+				line-height:13px;
+			}
+			
+			.window .content {
+				max-height:300px;
+				margin:4px;
+				position:relative;
+			}
+			
+			.window .content table td:first-child {
+				color:#5A6F99;
+				font-weight:bold;
+				text-align:right;
+				padding-left:4px;
+			}
+			
+			.window .content input {
+				background-color:#F2F2F2;
+				border:1px solid #C0C0C0;
+				height:16px;
+				padding:0px 2px;
+			}
+			
+			.select-container {
+				position:relative;
+			}
+			
+			.select-container .selected {
+				text-align:left;
+				padding:0px 2px;
+				background-image:url(/assets/basic/select-arrow.png);
+				background-repeat:no-repeat;
+				background-position:137px -1px;
+				background-color:#F2F2F2;
+				border:1px solid #C0C0C0;
+				width:150px;
+				margin-left:2px;
+			}
+			
+			.select-container .select-box {
+				text-align:left;
+				padding:0px 2px;
+				background-image:url(/assets/basic/select-arrow-up.png);
+				background-repeat:no-repeat;
+				background-position:137px -1px;
+				background-color:#F2F2F2;
+				border:1px solid #C0C0C0;
+				width:150px;
+				margin-left:2px;
+				position:absolute;
+				top:0;
+				display:none;
+			}
+			
+			.window .buttons {
+				background-image:url(/assets/basic/stripe-background.png); height:24px; border-top:1px solid #C0C0C0; 
+				border-bottom-left-radius: 4px;
+				border-bottom-right-radius: 4px;
+				
+			}
+			
+			.clear {
+				clear:both;
+			}
+			
+			#button-container {
+				position:absolute;
+				top:115px;
+				left:60px;
+				display:none;
+			}
+			
+			.select-area {
+				margin:5px 10px;
+				background-color:#F2F2F2;
+			}
+			
+			.select-area .selected {
+				background-color:#CEDEFF;
+			}		
+
+			#contact {
+				width:415px;
+			}
+			
+			#contact .content {
+				padding:0px;
+				padding-left:10px;
+				height:200px;
+			}
+			
+			.select-box div { 
+				margin-right:16px;
+			}
+			
+			.select-box div:hover {
+				background-color:#CEDEFF;
+			}
+		</style>		
+	</head>
+	
+	<body>
+		<div id='content'>
+			<div class='inside'>
+				<img style='position:absolute; bottom:0; right:0; top:auto; left:auto;' src='/assets/characters/mal_homnya_n.png'>				
+
+				<div id='logo' style='position:relative;'>
+					<img src='/assets/img/kristy-logo.png' alt='RagnaStats.com' title='RagnaStats, the Ragnarok Online Search Engine'>
+				</div>
+				
+				<div id='button-container'>
+					<div class='left button nodrag' toggle='#search-box'>Search</div>
+					<div class='left button nodrag' toggle='#login-box'>Login</div>
+					<div class='left button nodrag' toggle='#registration'>Register</div>
+					<div class='left button nodrag' toggle='#server-select'>Servers</div>
+				
+					<div class='clear'></div>
+					
+					<div class='left button nodrag' toggle='#about'>About</div>
+					<div class='left button nodrag' toggle='#contact' scroll='#contact .content'>Contact</div>
+					<div class='left button nodrag' href='#/get-involved/'>Get Involved</div>
+
+					<div class='clear'></div>					
+				</div>
+				
+				<div id='server-select' class='window'>
+					<div class='title'>
+						<img src='/assets/basic/little-button.png'>
+						Server Select
+					</div>
+					
+					<div class='content'>
+						<div class='select-area nodrag'>
+							<div class='selected'>iRO Valkyrie (1842 users connected)</div>
+							<div>iRO Classic (2380 users connected)</div>
+							<div>iRO Yggdrasil (524 users connected)</div>
+							<div>iRO Ymir (238 users connected)</div>
+						</div>	
+					</div>
+					
+					<div class='buttons'>
+						<div class='right button nodrag cancel' close='#server-select'>Cancel</div>
+						<div class='right button nodrag select' close='#server-select' spawn='#search-box'>Select</div>
+						<div class='clear'></div>
+					</div>
+				</div>
+				
+				<div id='search-box' class='window'>
+					<div class='title'>
+						<img src='/assets/basic/little-button.png'>
+						Ragnarok Database Search
+					</div>
+				
+					<div class='content'>
+						<table>
+							<tr>
+								<td>Type</td>
+								<td>
+									<div class='select-container'>
+										<div class='selected nodrag'>
+											Market
+										</div>
+									
+										<div class='select-box nodrag'>
+											<div>Market</div>
+											<div>Items</div>
+											<div>Monsters</div>
+											<div>NPCs</div>
+											<div>Maps</div>									
+										</div>
+									</div>
+								</td>
+							</tr>
+							<tr>
+								<td>Search</td>
+								<td><input name='search' class='nodrag'></td>
+							</tr>
+						</table>						
+					</div>
+					
+					<div class='buttons'>
+						<div class='right button nodrag' close='#search-box'>Cancel</div>
+						<div class='right button nodrag'>Search</div>
+						<div class='clear'></div>
+					</div>
+				</div>
+				
+				<div id='registration' class='window'>
+					<div class='title'>
+						<img src='/assets/basic/little-button.png'>
+						New User Registration
+					</div>
+					
+					<div class='content'>
+						HERRRRRRRRRRRRRRRRRRRRRR<br />
+						this is were u register 4 the rags kings online
+						
+					</div>
+					
+					<div class='buttons'>
+						<div class='right button nodrag' close='#registration'>Cancel</div>
+						<div class='right button nodrag'>Register</div>
+						<div class='clear'></div>
+					</div>					 
+				</div>
+				
+				<div id='about' class='window'>
+					<div class='title'>
+						<img src='/assets/basic/little-button.png'>
+						About RagnaStats
+					</div>
+					
+					<div class='content'>
+						We love bots. Fight da powah!	
+					</div>
+					
+					<div class='buttons'>
+						<div class='right button nodrag' close='#about'>Cancel</div>
+						<div class='clear'></div>
+					</div>
+				</div>
+				
+				<div id='contact' class='window'>
+					<div class='title'>
+						<img src='/assets/basic/little-button.png'>
+						Contact Rachel :D
+					</div>
+					
+					<div class='content nodrag'>
+						Wanna chat about RagnaStats?<br />
+						Have questions, problems, complaints?<br />
+						Maybe you're just looking for a new friend... :c<br />
+						<br />
+						If you play Ragnarok, you can find me on the iRO Valkyrie server. Feel free to message me on any of the following characters. Bold means I'm online with these characters all the time. Not bold means I only use them sometimes.<br />
+
+						<ul>
+							<li class='bold'>Fiolina</li>
+							<li class='bold'>Amber. M</li>
+							<li>Naftalina</li>
+							<li>Maybee</li>
+							<li>Zap!</li>
+						</ul>
+
+						Alternatively you can contact me with through one of these fine instant messaging services.
+						And <span class='italic'>I guess</span> you could email me but don't expect a response for at least a few days.<br />
+						<br />
+
+						<span class='bold block'>AIM</span>: rachelderp<br />
+						<span class='bold block'>Skype</span>: rachelderp<br />
+						<span class='bold block'>MSN</span>: rachelderp@gmail.com<br />
+						<span class='bold block'>Google Talk</span>: rachelderp@gmail.com<br />
+						<span class='bold block'>IRC</span>: <a href='http://wiki.wetfish.net/irc' target='_blank'>irc.wetfish.net</a> / #wetfish<br />
+						<span class='bold block'>Mumble</span>: <a href='http://wiki.wetfish.net/mumble' target='_blank'>mumble.wetfish.net</a> / port 64738 (Default)<br />						
+						
+					</div>
+					
+					<div class='buttons'>
+						<div class='right button nodrag' close='#contact'>Close</div>
+						<div class='clear'></div>
+					</div>
+				</div>
+				
+				<div id='warning-container'>
+					<div id='warning' class='highlight'>
+						WARNING: READ BEFORE SEARCHING<br />
+						<p>
+							RagnaStats may induce previously undetected desires to use illegal 3rd party plugins for Ragnarok Online.
+							A very small percentage of indivudals may experience temper tantrums when exposed to 3rd party plugins such as bots.
+							Exposure to certain plugins or cool features, also known as user created content, may induce irrational fits of rage in these indivudals and it would probably be best if they did not use this website.
+						</p>
+						
+						<p>
+							If you, or anyone in your family, have a problem with botting, consult your psychiatrist prior to searching.
+							The morality of hacking is a big deal.
+							Why wait for someone else to make things better when anyone can contribute to an open source project?
+						</p>
+						
+						<p>
+							[ TERMS OF AGREEMENT Last updated July 18, 2012 ]
+						</p>
+						
+						<p>
+							1. TERMS OF AGREEMENT<br />
+							THE TERMS OF AGREEMENT ("MY ASS") DESCRIBES THE FEATURES AND CONDITIONS ON WHICH RAGNASTATS INTERACTIVE INC ("RAGS KINGS") OFFERS TO ALLOW YOU TO USE THE BEST WEBSITE EVER ("RAGNASTATS.COM" OR THE "SHIT") CONDITIONED ON YOUR AGREEMENT TO ALL OF THE TERMS AND CONDITIONS CONTAINED IN THIS AGREEMENT AND COMPLIANCE WITH THE POSTED RULES OF CONDUCT.
+						</p>
+						
+						<p>
+							BEFORE PROCEEDING TO REGISTER, PLEASE READ MY ASS AND POKE THE "FART" BOX IF YOU ACCEPT THE TERMS. BY CLICKING ON THE "FART" BUTTON, INSTALLING, COPYING, OR OTHERWISE USING THE SHIT, YOU AGREE TO BE BOUND AND GAGGED. IF YOU DO NOT AGREE TO THE TERMS AND CONDITIONS OF MY ASS, PLEASE PRESS [ALT] + [F4] AND PROMPTLY GO OUTSIDE FOR SOME FRESH MOUNTAIN AIR.
+						</p>
+						
+						<p>
+							2. DEFINITIONS
+						</p>
+						
+						<p>
+							(a) "Intellectual Property" shall mean all patents, designs, utility models, copyrights, know-how, trade secrets, trademarks, service mark, trade dress and any other intellectual property rights in or related to the Shit or Technical Information.
+						</p>
+						
+						<p>
+							(b) "Technical Information" shall mean the software, know-how, data, test result, layouts, artwork, processes, scripts, concepts and other technical information on or in relation to the Shit and the installation, operation, maintenence, service and use thereof.
+						</p>
+
+						<p>
+							(c) "End Users" shall mean the users of RagnaStats.com through this website and our loving carebear hug network established and operated with individually assigned hug numbers for each End User. 
+						</p>
+
+						<p>
+							3. AMENDMENTS
+						</p>
+						
+						<p>
+							This User agreement (the "Shit") comprises the entire agreement between RagnaStats and the User, and supersedes any prior agreements between the User and RagnaStats with respect to the subject matter hereof. This Shit does not supersede any additional terms and conditions which may or may not have come with the installation of your cybernetic body. RagnaStats may amend or revise this Shit at any time and at its sole discretion, and such amendment or revision shall be effective upon posting of such revised agreement on the RagnaStats web site (the "Best Web Site Ever"). User hereby agrees to review this Shit by accessing the Best Website Ever periodically to become aware of any such revisions. If any revision is unacceptable to the User, the User may terminate the Shit hereof. Continued use of the Services following the posting of the revised Agreement shall be deemed to be acceptance of all such what does this even mean.
+						</p>
+						
+						<p>
+							4. DESCRIPTION OF SERVICE
+						</p>
+						
+						<p>
+							Holy crap this thing goes on forever.
+						</p>
+					</div>
+					
+					<div class='right button' href='http://wetfish.net/'>Exit</div>
+					<div class='right button' close='#warning-container' spawn='#server-select, #button-container'>Agree</div>
+				</div>
+				
+				<div id='login-box' class='window' style='min-width:310px;'>
+					<div class='title'>
+						<img src='/assets/basic/little-button.png'>
+						Welcome!
+					</div>
+					
+					<div class='content'>
+						<table>
+							<tr>
+								<td>ID</td>
+								<td><input name='username' class='nodrag'></td>
+								<td><img class='right pointer nodrag' id='checkbox-keep-username' style='padding:12px' src='/assets/basic/keep-checked.png'></td>
+							</tr>
+							<tr>
+								<td>Password</td>
+								<td><input name='password' type='password' class='nodrag'></td>
+								<td>&nbsp;</td>
+							</tr>
+						</table>						
+					</div>
+					
+					<div class='buttons'>
+						<div class='right button nodrag' close='#login-box'>Cancel</div>
+						<div class='right button nodrag' close='#login-box' spawn='#failed-lol'>Login</div>
+						<div class='clear'></div>
+					</div>
+				</div>
+				
+				<div id='failed-lol' class='window' style='display:none; width:300px; height:380px;'>
+					<div class='title'>
+						<img src='/assets/basic/little-button.png'>
+						OMG IT FAILED!!!
+					</div>
+					
+					<div class='content'>
+						<div style='padding:4px 0px 0px 12px'>
+							Holy crwap!!! We could not connect to the game server because there were not enough ponies to carry all the data.<br /><br />
+							<div class='right button nodrag' close='#failed-lol' spawn='#login-box'>Okay~</div>
+							Please try again later.
+						</div>
+						
+					</div>
+				</div>
+			</div>
+			
+			<div id='ragnarok-chat'>
+				<div id='ragnarok-chat-content' class='highlight'>
+					<div class='yellow'>[Fiolina] has To [blueberryFrog] use [Blessing] skill.</div>
+					<div class='lightgreen'>Maybee : Hey friends~</div>
+					<div class='lightgreen'>Maybee : Welcome to the RagnaStats!</div>
+					<div class='white'>Fiolina : hehe &lt;3</div>
+					<div class='lime'>Maybee : Public chat!! :D</div>
+					<div class='yellow'>[Fiolina] has To [blueberryFrog] use [Blessing] skill.</div>
+					<div class='lightgreen'>Maybee : Hey friends~</div>
+					<div class='lightgreen'>Maybee : Welcome to the RagnaStats!</div>
+					<div class='white'>Fiolina : hehe &lt;3</div>
+					<div class='lime'>Maybee : Public chat!! :D</div>
+				</div>
+				<div id='ragnarok-chat-handle'>
+					<div id='ragnarok-chat-container'>
+						<div id='ragnarok-chat-input'>
+							<input id='ragnarok-chat-user-input'>
+							<img id='ragnarok-chat-user-button' src='/assets/chat/user-button.png'>
+							<input id='ragnarok-chat-text-input' value="Let's just pretend this is some text~">
+							<img id='ragnarok-chat-send-to' src='/assets/chat/chat-button.png'>
+							<img id='ragnarok-chat-resize' src='/assets/chat/chat-button.png'>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		
+		<div id='footer-container'>
+			<div style='height:1px; width:100%; min-width:1024px; background-color:hsla(225, 35%, 50%, 0.2); box-shadow:0px 0px 8px 0px #000;'></div>
+			<div style='height:3px; width:100%; min-width:1024px; background-color:hsla(225, 35%, 50%, 0.3);'></div>
+		
+			<div id='footer'>
+				<div class='inside'>
+					<div id='footerboxes'>
+						<div class='footerbox'>
+							<h2>Market <img src='/assets/img/market.png'></h2>
+							
+							<ul>
+								<li>Players Selling</li>
+								<li>Players Buying</li>
+								<li>Best Deals</li>
+								<li>Worst Deals</li>
+								<li>Recently Sold</li>
+							</ul>
+						</div>
+
+						<div class='footerbox'>
+							<h2>Items <img src='/assets/img/item.png'></h2>
+							
+							<ul>
+								<li>Browse All Items</li>
+								<li>Search by Type</li>
+								<li>Dropped By</li>
+								<li>Item Forging</li>
+								<li>Popular Items</li>
+							</ul>
+						</div>
+
+						<div class='footerbox'>
+							<h2>Monsters <img src='/assets/img/monster.png'></h2>
+							
+							<ul>
+								<li>Browse All Monsters</li>
+								<li>Search by Location</li>
+								<li>Advanced Search</li>
+								<li>Mini-Bosses</li>
+								<li>MVPs</li>
+							</ul>
+						</div>
+
+						<div class='footerbox'>
+							<h2>NPCs <img src='/assets/img/npc.png'></h2>
+							
+							<ul>
+								<li>Browse All NPCs</li>
+								<li>Search by Location</li>
+								<li>Search by Name</li>
+								<li>Search by Quest</li>
+							</ul>
+						</div>
+
+						<div class='footerbox'>
+							<h2>Maps <img src='/assets/img/guide.png'></h2>
+							
+							<ul>
+								<li>World Map</li>
+								<li>Dungeons</li>
+								<li>Inside Buildings</li>
+								<li>WoE Castles</li>
+							</ul>
+						</div>
+
+						<div class='footerbox'>
+							<h2>Misc. <img src='/assets/img/misc.png'></h2>
+							
+							<ul>
+								<li>Server Population</li>
+								<li>WoE Statistics</li>
+								<li>Classes</li>
+		<!--						<li>Parties</li> -->
+								<li>Guilds</li>
+								<li>Skills</li>
+
+							</ul>
+						</div>
+					</div>
+					
+					<div style='clear:both'></div>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>
+

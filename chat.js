@@ -29,13 +29,13 @@ function isset(variable)
         return false;
 }
 
-server.listen(1026);
+server.listen(1024);
 
 app.use(express.static(__dirname + '/static'));
 
 app.get('/', function(req, res)
 {
-  res.sendfile(__dirname + '/index.html');
+  res.sendfile(__dirname + '/index-beta.html');
 });
 
 io.sockets.on('connection', function(socket)

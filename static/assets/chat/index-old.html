@@ -1,0 +1,364 @@
+<html>
+	<head>
+		<title>RagnaStats &mdash; Ragnaraok Database</title>
+			
+		<script src='http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js'></script>
+		<script src='http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/jquery-ui.min.js'></script>
+		<link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/themes/base/jquery-ui.css" type="text/css" />
+		<link href='http://fonts.googleapis.com/css?family=Squada+One' rel='stylesheet' type='text/css'>
+		<link rel="icon" type="image/png" href="/assets/img/flower.png"/>
+		
+		<script src='/assets/js/contenteditable-scroll.js'></script>
+		
+		<style>
+			body { background-image:url(/assets/img/swirlies.png);
+					margin:0px;
+					font-family: "Lucida Grande", "Lucida Sans Unicode", Helvetica, Arial, Verdana, sans-serif;
+					font-size:9pt; }
+			
+			
+			.left { float:left; }
+			.right { float:right; }
+			
+			#user { height:4px; width:100%; min-width:1024px; background-color:#fff; }
+			#user .inside {  }
+			
+			#user a { color:hsl(215, 60%, 40%);
+						padding:0px 10px; }
+
+			#userlinks { position:absolute;
+							background-color:#fff;
+							border-bottom-right-radius: 8px;
+							border-bottom-left-radius: 8px;
+							border-bottom:1px solid #94A2CA;
+							padding:4px 12px 6px 12px;
+							top:4px;
+							right:24px; }
+			
+			#header { height:110px; width:100%; min-width:1024px; padding-top:44px; background-color:hsla(225, 35%, 50%, 0.3); }
+			.inside { width:1024px; margin:0px auto; position:relative; }
+			
+			#nav { font-size:13pt;
+					height:40px; width:100%; min-width:1024px; background-color:hsla(225, 35%, 50%, 0.6);		}
+				
+			#nav .inside { padding-top:10px; }
+				
+			#nav #links { padding-left:44px; }
+			 
+			
+			a { text-decoration:none; color:inherit; }
+			a:hover { text-decoration:underline; }
+			
+			
+			#headernav { position:absolute;
+							border-bottom-right-radius: 8px;
+							border-bottom-left-radius: 8px;
+							border-bottom:1px solid #94A2CA;
+							padding:4px 12px 6px 12px;
+							background-color:#fff;
+							top:4px;
+							left:44px; }
+							
+			#headernav a { padding:0px 10px; color:#000; }
+			
+			#nav a { color:hsl(215, 60%, 40%);
+					 padding:10px;
+					 margin:0px; }
+
+			#nav a:hover { text-decoration:none; background-color:hsla(225, 35%, 50%, 0.1); }
+				
+			#nav a.selected { color:#fff; }
+					
+			#content { min-width:1024px;
+						background-color:hsla(225, 35%, 50%, 0.8);
+						min-height:420px; overflow: hidden; 
+						color:#fff; }
+	
+			#content .inside { padding:8px; }
+	
+			#footer {  min-width:1024px;
+						background-color:hsla(225, 35%, 50%, 0.6);
+						color:hsl(215, 70%, 40%);
+						min-height:250px; }
+						
+			#footer .inside { padding-top:16px; }
+
+			.footerbox { float:left; padding:0px 12px; }
+			.footerbox ul { list-style-type:none; margin:0; padding:0; }
+			
+			#footerboxes { width:830px; margin:0px auto; }
+			
+			#searchbox { position:absolute;
+							top:5px;
+							right:22px; }
+			
+			.search { background-color:#fff; width:220px; padding:4px 8px; border-radius:4px;
+						border-bottom:1px solid #000;
+						border-right:1px solid #000;
+						display:inline-block;
+						color:#000;
+						overflow:hidden; }
+						
+			.submit {  background-color:hsla(225, 35%, 50%, 0.8);
+						padding:4px 24px;
+						border-radius:4px;
+						
+						border-top:1px solid #fff;
+						border-left:1px solid #fff;
+						border-bottom:1px solid #000;
+						border-right:1px solid #000;
+						display:inline-block;
+						color:#fff;
+						cursor:pointer;
+						text-shadow:#000 1px 1px 2px; }
+					
+			.submit:active { border-top:1px solid #000;
+							 border-left:1px solid #000;
+							 border-bottom:1px solid #fff;
+							 border-right:1px solid #fff; }
+					
+			h1,h2,h3,h4,h5 { font-family: "Squada One"; font-weight:normal; }
+			h1 { font-size:300%; }
+			h2 { font-size:244%; }			
+		
+			h1 { padding:0px; }
+			h2 { padding:0px 12px 8px 0px; margin:0; }
+			
+			td { text-align:center; font-size:10pt; }
+
+			#avatar { position:absolute;
+						z-index:1;
+						top:44px;
+						right:22px;
+						border:1px solid #000; }
+						
+			#itembar { position:absolute;
+						z-index:1;
+						top:56px;
+						right:136px; }
+						
+			#content li { padding-bottom: 23px; }
+			#content a { color: #FDB7FF; }
+		</style>
+		
+		<script>
+			$(window).load(function()
+			{
+			//	alert($('#content').height());
+			
+				if($('#content').height() > $('#background .content').height())
+				{
+					$('#background .content').animate({'height': $('#content').height()});
+				
+				}
+			});
+		</script>
+	</head>
+	
+	<body>
+		<div id='user'>
+			<div class='inside'>
+				<div id='headernav'>
+					<a href=''>Servers</a>
+					<a href=''>News</a>
+					<a href=''>About</a>
+					<!-- <a href=''>Colors!?</a> -->
+					<a href=''>Get Involved</a>
+				</div>
+			
+				<div id='userlinks'>
+					<a href=''>Login</a>
+					<a href=''>Register</a>
+					<a href=''>Why?</a>
+				</div>
+				
+				<div id='itembar'>
+					<table>
+						<tr>
+							<td>Favorites</td>
+							<td><img src='/assets/img/itembar.png' title='Drag items here to remember them later'></td>
+						</tr>
+						<tr>
+							<td>Recents</td>
+							<td><img src='/assets/img/itembar.png' title='This is where previously viewed items go'></td>
+						</tr>
+					</table>
+				</div>
+				
+				<div id='avatar'>
+					<img src='/assets/img/default.png' title="You're not logged in. Your avatar is a cute little poring!">
+				</div>
+			</div>
+		</div>
+	
+		<div id='header'>
+			<div class='inside'>
+				<img src='/assets/img/kristy-logo.png' alt='RagnaStats.com' title='RagnaStats, the Ragnarok Online Search Engine'>				
+			</div>
+		</div>
+
+		<div style='height:1px; width:100%; min-width:1024px; background-color:hsla(225, 35%, 50%, 0.2);'></div>
+		<div style='height:2px; width:100%; min-width:1024px; background-color:hsla(225, 35%, 50%, 0.5);'></div>
+
+		<div id='nav'>
+			<div class='inside'>
+				<div id='links'>
+					<a href='/market/'>Market</a>
+					<a href='/market/'>Items</a>
+					<a href='/market/'>Monsters</a>
+					<a href='/market/'>NPCs</a>
+					<a href='/market/'>Maps</a>
+					<a href='/market/'>Chat</a>
+				</div>
+				
+				<div id='searchbox'>
+					<div class='search' contenteditable='true'></div> &nbsp; <div class='submit'>Search</div>
+				</div>
+			</div>
+		</div>
+
+		<div style='height:2px; width:100%; min-width:1024px; background-color:hsla(225, 35%, 50%, 0.5);'></div>
+		<div style='height:1px; width:100%; min-width:1024px; background-color:hsla(225, 35%, 50%, 0.3);'></div>
+
+		<div id='content'>
+			<div class='inside'>
+				<img style='float:right' src='/assets/img/characters/god_kukur02.png'>
+				
+				<h1>Welcome to RagnaStats!</h1>
+				
+				<p>RagnaStats is a search engine for the MMORPG Ragnarok Online. The information in our databases is a collaborative effort, constantly updated by players and automated programs. We collect information from all iRO servers to help you find the best deals on items, monster locations, and quest NPCs.</p>
+
+				
+				<h2>Developer Notes</h2>
+				<ul>
+					<li>The new ragnastats database needs to store all the information presented in the navigation on this page.</li>
+					<li>It also needs to be able to verify information from multiple sources.</li>
+					<li>However, some information may change frequently, so different thresholds should apply for shops, player information, etc.</li>
+					<li>Maybe users should be weighted based on how much good data they've already sent?</li>
+					<li>That probably won't be implimented in the first version, but try to keep things open ended enough to possibly support it.</li>
+					<li>We don't want to display shops with inaccurate information, but what equipment someone is wearing should be more forgiving. (Only need verification from one or two sources)</li>
+					<li>There could also be a time element for non-shop information. This would give a chance for other users to see the same thing, or at the very least prevent someone from submitting false data and seeing it appear on the site immediately. (Script kiddies get bored)</li>
+					<li>We also need to store information about sprites. Every sprite. Check out the <a href='http://alpha.ragnastats.com/sprites/parser.php' target='_blank'>sprites alpha page</a>.</li>
+					<li>It'll be important to remember the original directories/file names, but we also need to present the information with SEO friendly URLs, easy navigation, etc.</li>
+					<li>What needs to be changed in the current database to better work with the new system?</li>
+					<li>After messing with the original RagnaStats source all day, I found some unindexed queries which were the source of the site's slow loading times. Even with almost 1,000,000 shops in the database it's once again loading super fast.</li>
+					<li>But for portability reasons (if we ever need to move servers?) it would still be convenient to have a table which only contains market information from the past month.</li>
+					<li>What operations are CPU/load time intensive? What should be cached? Daily item averages?</li>
+				</ul>
+				
+				<div id='chatbox' style='display:none'>
+					<div id='chat-tabs'>
+						General Chat
+						Selling
+						Buying
+					</div>
+					
+					<div id='chat-content'>
+						rachel: LOLOLOLOL PENIS.
+					</div>
+					
+					<div id='chat-input'></div>
+				</div>
+			</div>
+		</div>
+
+		<div style='height:1px; width:100%; min-width:1024px; background-color:hsla(225, 35%, 50%, 0.2);'></div>
+		<div style='height:4px; width:100%; min-width:1024px; background-color:hsla(225, 35%, 50%, 0.4);'></div>
+		
+		<div id='footer'>
+			<div class='inside'>
+				<div id='footerboxes'>
+					<div class='footerbox'>
+						<h2>Market <img src='/assets/img/market.png'></h2>
+						
+						<ul>
+							<li>Players Selling</li>
+							<li>Players Buying</li>
+							<li>Best Deals</li>
+							<li>Worst Deals</li>
+							<li>Recently Sold</li>
+							<li>Popularly Sold</li>
+						</ul>
+					</div>
+
+					<div class='footerbox'>
+						<h2>Items <img src='/assets/img/item.png'></h2>
+						
+						<ul>
+							<li>Browse All Items</li>
+							<li>Search by Type</li>
+							<li>Dropped By</li>
+							<li>Item Forging</li>
+							<li>Popular Items</li>
+						</ul>
+					</div>
+
+					<div class='footerbox'>
+						<h2>Monsters <img src='/assets/img/monster.png'></h2>
+						
+						<ul>
+							<li>Browse All Monsters</li>
+							<li>Search by Location</li>
+							<li>Advanced Search</li>
+							<li>Mini-Bosses</li>
+							<li>MVPs</li>
+						</ul>
+					</div>
+
+					<div class='footerbox'>
+						<h2>NPCs <img src='/assets/img/npc.png'></h2>
+						
+						<ul>
+							<li>Browse All NPCs</li>
+							<li>Search by Location</li>
+							<li>Search by Name</li>
+							<li>Search by Quest</li>
+						</ul>
+					</div>
+
+					<div class='footerbox'>
+						<h2>Maps <img src='/assets/img/guide.png'></h2>
+						
+						<ul>
+							<li>World Map</li>
+							<li>Dungeons</li>
+							<li>Inside Buildings</li>
+							<li>WoE Castles</li>
+						</ul>
+					</div>
+
+					<div class='footerbox'>
+						<h2>Misc. <img src='/assets/img/misc.png'></h2>
+						
+						<ul>
+							<li>Server Population</li>
+							<li>WoE Statistics</li>
+							<li>Classes</li>
+	<!--						<li>Parties</li> -->
+							<li>Guilds</li>
+							<li>Skills</li>
+							<li>Chat</li>
+
+						</ul>
+					</div>
+				</div>
+				
+				<div style='clear:both'></div>
+
+				<br /><br /><br />
+				
+				<center><script type="text/javascript"><!--
+				google_ad_client = "ca-pub-5031051420587150";
+				/* RagnaStats */
+				google_ad_slot = "8730749089";
+				google_ad_width = 728;
+				google_ad_height = 90;
+				//-->
+				</script>
+				<script type="text/javascript"
+				src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+				</script></center>
+			</div>
+		</div>
+	</body>
+</html>

@@ -1,0 +1,11 @@
+			var chatMode = false;
+		
+			function toggleChat(mode)
+			{
+				if(mode)
+					$('#ragnarok-chat-handle').css('background-color', '');				
+				else
+					$('#ragnarok-chat-handle').css('background-color', '#fff');
+					
+				return !mode;
+			}
