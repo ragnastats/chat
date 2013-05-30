@@ -2,22 +2,24 @@
 <html>
 	<head>
 		<title>RagnaStats &mdash; Ragnaraok Database</title>
-			
-		<script src='http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js'></script>
-		<script src='http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/jquery-ui.min.js'></script>
-		<link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/themes/base/jquery-ui.css" type="text/css" />
+
+        <script src="/socket.io/socket.io.js"></script>
+        <script src="/js/jquery-1.9.1.min.js"></script>
+
+		<script src='http://ajax.googleapis.com/ajax/libs/jqueryui/1.9.2/jquery-ui.min.js'></script>			
+		<link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.9.2/themes/base/jquery-ui.css" type="text/css" />
 		<link href='http://fonts.googleapis.com/css?family=Fredoka+One' rel='stylesheet' type='text/css'>
-		<link rel="icon" type="image/png" href="/assets/img/flower.png"/>
-			<link href="/css/jquery.mCustomScrollbar.css" rel="stylesheet" type="text/css" />
 
+        <script src="/js/util.js"></script>
+        <script src="/js/chat.js"></script>
+
+
+        <link href="/css/jquery.mCustomScrollbar.css" rel="stylesheet" type="text/css" />
 		<script src='/js/contenteditable-scroll.js'></script>
-	<!-- mousewheel plugin -->
-
-	<script src='/js/jquery.mousewheel.min.js'></script>
-
-	<!-- custom scrollbars plugin -->
-
-	<script src='/js/jquery.mCustomScrollbar.js'></script>
+        <script src='/js/jquery.mousewheel.min.js'></script>
+        <script src='/js/jquery.mCustomScrollbar.min.js'></script>
+    
+		<link rel="icon" type="image/png" href="/assets/img/flower.png"/>
 		
 		<style>
 			body { background-image:url(/assets/img/swirlies.png);
@@ -295,7 +297,11 @@
 				margin:2px 0px 0px 3px;
 				overflow:hidden;
 			}
-			
+
+            .mCSB_container {
+                padding-bottom:2px;
+            }
+            
 			.yellow { color:yellow; }
 			.green { color:green; }
 			.white { color:white; }
@@ -408,7 +414,13 @@
 											});
 											
 				$('#ragnarok-chat').resizable({    handles: 'n', 'grid': [14, 14], 'maxHeight': 280, 'minHeight':75 });
-								
+
+                $('#ragnarok-chat').on('resizestop', function()
+                {
+                    $('#ragnarok-chat-content').mCustomScrollbar("update"); //update scrollbar according to newly loaded content
+                    $('#ragnarok-chat-content').mCustomScrollbar("scrollTo",".mCSB_container div:last",{scrollInertia:100}); //scroll to appended content
+                });
+                
 				$(window).keydown(function(event)
 				{
 					if(event.keyCode == 13) // Enter
@@ -419,9 +431,12 @@
 							evaluate($('#server-select .select'));
 							return true;
 						}
-						
-						$('#ragnarok-chat-container').toggle();
-						$('#ragnarok-chat-text-input').focus();
+
+                        if($('#ragnarok-chat-text-input').val() == '')
+                        {
+                            $('#ragnarok-chat-container').toggle();
+                            $('#ragnarok-chat-text-input').focus();
+                        }
 					}
 				
 					if(event.keyCode == 38) // Up
@@ -934,7 +949,7 @@
 					
 					<div class='content'>
 						<div style='padding:4px 0px 0px 12px'>
-							Holy crwap!!! We could not connect to the game server because there were not enough ponies to carry all the data.<br /><br />
+							Holy crawp!!! We could not connect to the game server because there were not enough ponies to carry all the data.<br /><br />
 							<div class='right button nodrag' close='#failed-lol' spawn='#login-box'>Okay~</div>
 							Please try again later.
 						</div>
@@ -949,19 +964,14 @@
 					<div class='lightgreen'>Maybee : Hey friends~</div>
 					<div class='lightgreen'>Maybee : Welcome to the RagnaStats!</div>
 					<div class='white'>Fiolina : hehe &lt;3</div>
-					<div class='lime'>Maybee : Public chat!! :D</div>
-					<div class='yellow'>[Fiolina] has To [blueberryFrog] use [Blessing] skill.</div>
-					<div class='lightgreen'>Maybee : Hey friends~</div>
-					<div class='lightgreen'>Maybee : Welcome to the RagnaStats!</div>
-					<div class='white'>Fiolina : hehe &lt;3</div>
-					<div class='lime'>Maybee : Public chat!! :D</div>
+					<div class='white'>Maybee : Public chat!! :D</div>
 				</div>
 				<div id='ragnarok-chat-handle'>
 					<div id='ragnarok-chat-container'>
 						<div id='ragnarok-chat-input'>
 							<input id='ragnarok-chat-user-input'>
 							<img id='ragnarok-chat-user-button' src='/assets/chat/user-button.png'>
-							<input id='ragnarok-chat-text-input' value="Let's just pretend this is some text~">
+							<input id='ragnarok-chat-text-input' value="">
 							<img id='ragnarok-chat-send-to' src='/assets/chat/chat-button.png'>
 							<img id='ragnarok-chat-resize' src='/assets/chat/chat-button.png'>
 						</div>

@@ -77,9 +77,10 @@ io.sockets.on('connection', function(socket)
         // Can't chat if you don't have a name!
         if(isset(chat.message) && chat.message
             && isset(user.name) && user.name)
-        {
+        {            
             var message = sanitize(chat.message).entityEncode();
-            io.sockets.emit('chat', {user: user.name, message: message});
+            socket.emit('chat', {color: 'lime', user: user.name, message: message});
+            socket.broadcast.emit('chat', {color: 'white', user: user.name, message: message});
         }
     });
 
