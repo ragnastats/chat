@@ -46,7 +46,7 @@ io.sockets.on('connection', function(socket)
     console.log(getDate() + ' User connected');
 
     var address = socket.handshake.address;
-    console.log("New connection from " + address.address + ":" + address.port);
+    console.log("New connection - " + address.address + ":" + address.port);
 
     socket.emit('connected');
     
@@ -74,6 +74,7 @@ io.sockets.on('connection', function(socket)
             users.push(data.name);
             
             io.sockets.emit('users', {list: users});
+            console.log("New user name - " + user.name + " - " + address.address + ":" + address.port);
         }
     });
     
@@ -82,16 +83,19 @@ io.sockets.on('connection', function(socket)
         // Can't chat if you don't have a name!
         if(isset(chat.message) && chat.message
             && isset(user.name) && user.name)
-        {            
+        {
             var message = sanitize(chat.message).entityEncode();
             socket.emit('chat', {color: 'lime', user: user.name, message: message});
             socket.broadcast.emit('chat', {color: 'white', user: user.name, message: message});
+            console.log(user.name + " : " + message);
         }
     });
 
     socket.on('disconnect', function()
     {
         console.log(getDate() + ' User disconnected');
+        console.log("Connection closed - " + address.address + ":" + address.port);
+
         count--;
         
         // Remove user name from user list if they gave us one
