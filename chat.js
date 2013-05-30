@@ -67,6 +67,17 @@ io.sockets.on('connection', function(socket)
             socket.emit('error', {message: 'Your name must be alphanumeric and no longer than 16 characters!'});
             socket.emit('connected');
         }
+
+        try
+        {
+            check(data.name).notIn(users);
+        }
+        catch(e)
+        {
+            success = false;
+            socket.emit('error', {message: 'Sorry, that name is already in use.'});
+            socket.emit('connected');
+        }
         
         if(success)
         {
