@@ -29,7 +29,7 @@ function isset(variable)
         return false;
 }
 
-server.listen(1024);
+server.listen(1028);
 
 app.use(express.static(__dirname + '/static'));
 
@@ -38,11 +38,16 @@ app.get('/', function(req, res)
   res.sendfile(__dirname + '/index-beta.html');
 });
 
+io.set('log level', 1); // reduce logging
 io.sockets.on('connection', function(socket)
 {
     var user = {};
     
     console.log(getDate() + ' User connected');
+
+    var address = socket.handshake.address;
+    console.log("New connection from " + address.address + ":" + address.port);
+
     socket.emit('connected');
     
     count++;

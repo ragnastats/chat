@@ -28,8 +28,7 @@ socket.on('count', function(data)
 
 socket.on('users', function(users)
 {
-    console.log('Connected');
-    $('.users').html(users.list.join(' '));
+    console.log(users);
 });
 
 socket.on('chat', function(chat)
